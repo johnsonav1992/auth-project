@@ -1,46 +1,38 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useContext } from 'react'
 import axios from 'axios'
+
+import AuthContext from '../store/authContext'
 
 const Auth = () => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [register, setRegister] = useState(true)
-    const [message, setMessage] = useState('')
+	const [message, setMessage] = useState('')
 
+	const authCtx = useContext(AuthContext)
 
 	const API_URL = 'https://socialmtn.devmountain.com'
 
 	const submitHandler = e => {
 		e.preventDefault()
 
-		if (register) {
-			axios
-				.post(`${API_URL}/register`, {
-					username,
-					password,
-				})
-				.then(({ data }) => {
-					console.log(data)
-                    setMessage('User added!')
-                    setTimeout(() => {
-                        setMessage('')
-                    }, 2000)
-				})
-                .catch(err => console.error(err))
-		} else {
-			axios
-				.post(`${API_URL}/login`, {
-					username,
-					password,
-				})
-				.then(({ data }) => {
-					console.log(data)
-				})
-                .catch(err => console.error(err))
-		}
+		axios
+			.post(register ? `${API_URL}/register` : `${API_URL}/login`, {
+				username,
+				password,
+			})
+			.then(({ data }) => {
+				console.log(data)
+				setMessage('User added!')
+				setTimeout(() => {
+					setMessage('')
+				}, 2000)
+				authCtx.login(data.token, data.exp, data.userId)
+			})
+			.catch(err => console.error(err))
 
-        setUsername('')
-        setPassword('')
+		setUsername('')
+		setPassword('')
 	}
 
 	return (
@@ -59,12 +51,12 @@ const Auth = () => {
 					type="text"
 					placeholder="password"
 					value={password}
-                    onChange={e => setPassword(e.target.value)}
+					onChange={e => setPassword(e.target.value)}
 				/>
 				<button className="form-btn">
 					{register ? 'Sign Up' : 'Login'}
 				</button>
-                <h3>{message}</h3>
+				<h3>{message}</h3>
 			</form>
 			<button
 				className="form-btn"
@@ -74,7 +66,6 @@ const Auth = () => {
 			>
 				Need to {register ? 'Login' : 'Sign Up'}?
 			</button>
-			
 		</main>
 	)
 }
