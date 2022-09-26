@@ -8,6 +8,8 @@ const Auth = () => {
 	const [password, setPassword] = useState('')
 	const [register, setRegister] = useState(true)
 	const [message, setMessage] = useState('')
+	const [error, setError] = useState('')
+	const [isFocused, setIsFocused] = useState(false)
 
 	const authCtx = useContext(AuthContext)
 
@@ -29,7 +31,15 @@ const Auth = () => {
 				}, 2000)
 				authCtx.login(data.token, data.exp, data.userId)
 			})
-			.catch(err => console.error(err))
+			.catch(err => {
+				console.error(err)
+				if (register) {
+					setError('Could not register - user already exists!')
+				} else setError('Could not login!')
+				setTimeout(() => {
+					setError('')
+				}, 2000)
+			})
 
 		setUsername('')
 		setPassword('')
@@ -56,6 +66,7 @@ const Auth = () => {
 				<button className="form-btn">
 					{register ? 'Sign Up' : 'Login'}
 				</button>
+				{error && <p className='error-msg'>{error}</p>}
 				<h3>{message}</h3>
 			</form>
 			<button

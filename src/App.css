@@ -247,3 +247,12 @@ main {
 	margin: 25px;
 	padding: 15px;
 }
+
+/* errors */
+
+.error-msg {
+	margin: .5rem;
+	color: red;
+	text-align: center;
+	font-size: .75rem;
+}
