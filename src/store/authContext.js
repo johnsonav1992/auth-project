@@ -38,14 +38,12 @@ const getLocalData = () => {
 
 export const AuthContextProvider = props => {
 	const localData = getLocalData()
-	
 
 	let initialToken
 	if (localData) {
 		initialToken = localData.token
 	}
 	
-
 	const [token, setToken] = useState(initialToken)
 	const [userId, setUserId] = useState(null)
 	
