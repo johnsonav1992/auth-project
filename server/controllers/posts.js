@@ -5,7 +5,7 @@ module.exports = {
     getAllPosts: async (req, res) => {
         try {
             const posts = await Post.findAll({
-                // where: {privateStatus: false},
+                where: {privateStatus: false},
                 include: [{
                     model: User,
                     required: true,

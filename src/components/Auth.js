@@ -48,7 +48,7 @@ const Auth = () => {
 				/>
 				<input
 					className="form-input"
-					type="text"
+					type="password"
 					placeholder="password"
 					value={password}
 					onChange={e => setPassword(e.target.value)}
