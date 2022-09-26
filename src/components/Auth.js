@@ -37,7 +37,7 @@ const Auth = () => {
 
 	return (
 		<main>
-			<h1>Welcome!</h1>
+			<h1>{register ? 'Register for an Account' : 'Login'}</h1>
 			<form className="form auth-form" onSubmit={submitHandler}>
 				<input
 					className="form-input"
@@ -64,7 +64,7 @@ const Auth = () => {
 					setRegister(!register)
 				}}
 			>
-				Need to {register ? 'Login' : 'Sign Up'}?
+				Need to {register ? 'Login? Click Here' : 'Sign Up? Click Here'}
 			</button>
 		</main>
 	)

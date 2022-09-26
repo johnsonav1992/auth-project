@@ -152,6 +152,7 @@ main {
 
 .logout-btn:hover {
 	color: #f57145;
+	cursor: pointer;
 }
 
 
@@ -190,6 +191,7 @@ main {
 	background-color: #171717;
 	color: #f0f0f0;
 	transform: translateY(-3px);
+	cursor: pointer;
 }
 
 
