@@ -47,8 +47,17 @@ module.exports = {
         }
     },
 
-    editPost: (req, res) => {
-        console.log('hi')
+    editPost: async (req, res) => {
+        try {
+            const { id } = req.params
+            const { status } = req.body
+            await Post.update({privateStatus: status}, {
+                where: {id: +id}
+            })
+            res.sendStatus(200)
+        } catch (err) {
+            res.status(400).send('Error deleting post', err)
+        }
     },
 
     deletePost: (req, res) => {
