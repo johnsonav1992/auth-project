@@ -8,7 +8,7 @@ module.exports = app => {
     app.post('/register', register)
     app.post('/login', login)
     app.post('/posts', isAuthenticated, addPost)
-    app.put('/posts/postId', isAuthenticated, editPost)
-    app.delete('/posts', isAuthenticated, deletePost)
+    app.put('/posts/:id', isAuthenticated, editPost)
+    app.delete('/posts/:id', isAuthenticated, deletePost)
 
 }

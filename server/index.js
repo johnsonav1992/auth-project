@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
-const { PORT } = process.env
+const { SERVER_PORT } = process.env
 
 const { sequelize } = require('./util/database')
 const { User } = require('./models/user')
@@ -18,8 +18,8 @@ Post.belongsTo(User)
 require('./routes/routes')(app)
 
 sequelize.sync().then(() => {
-	app.listen(PORT, () =>
-		console.log(`DB sync successful and server running on port ${PORT}`)
+	app.listen(SERVER_PORT, () =>
+		console.log(`DB sync successful and server running on port ${SERVER_PORT}`)
 	)
 })
 .catch(err => console.error(err))

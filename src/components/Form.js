@@ -54,7 +54,8 @@ const Form = () => {
                             id='private-status'
                             value={true}
                             onChange={e => setStatus(e.target.value)}
-                            checked={true}
+                            defaultChecked={true}
+                           
                         />
                     </div>
                     <div className='radio-btn'>

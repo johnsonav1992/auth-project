@@ -5,7 +5,7 @@ module.exports = {
     getAllPosts: async (req, res) => {
         try {
             const posts = await Post.findAll({
-                where: {privateStatus: false},
+                // where: {privateStatus: false},
                 include: [{
                     model: User,
                     required: true,
@@ -56,12 +56,19 @@ module.exports = {
             })
             res.sendStatus(200)
         } catch (err) {
-            res.status(400).send('Error deleting post', err)
+            res.status(400).send('Error editing post', err)
         }
     },
 
-    deletePost: (req, res) => {
-        console.log('hi')
+    deletePost: async (req, res) => {
+        try {
+            const { id } = req.params
+            await Post.destroy({ where: {id: +id}})
+            res.sendStatus(200)
+
+        } catch (err) {
+            res.status(400).send('Error deleting post', err)
+        }
     }
 
 }

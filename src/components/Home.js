@@ -23,6 +23,8 @@ const Home = () => {
         })
     }, [userId])
 
+   
+
     const mappedPosts = posts.map(post => {
         return (
             <div key={post.id} className='post-card'>

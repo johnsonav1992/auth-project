@@ -7,8 +7,6 @@ const Profile = () => {
     const { userId, token } = useContext(AuthContext)
     const [posts, setPosts] = useState([])
 
-    console.log(posts)
-
     const url = 'http://localhost:4000'
 
     const getUserPosts = useCallback(() => {
