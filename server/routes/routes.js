@@ -3,7 +3,12 @@ const { getAllPosts, getCurrentUserPosts, addPost, editPost, deletePost } = requ
 const { isAuthenticated } = require('../middleware/isAuthenticated')
 
 module.exports = app => {
-    app.get('/userposts/:userId', getAllPosts)
-    
-	
+    app.get('/userposts/:userId', getCurrentUserPosts)
+    app.get('/posts', getAllPosts)
+    app.post('/register', register)
+    app.post('/login', login)
+    app.post('/posts', isAuthenticated, addPost)
+    app.put('/posts/postId', isAuthenticated, editPost)
+    app.delete('/posts', isAuthenticated, deletePost)
+
 }

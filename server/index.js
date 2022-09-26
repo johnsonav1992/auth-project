@@ -7,8 +7,6 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-const router = express.Router()
-
 ///Routes///
 require('./routes/routes')(app)
 
