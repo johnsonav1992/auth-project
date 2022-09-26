@@ -11,7 +11,7 @@ const Auth = () => {
 
 	const authCtx = useContext(AuthContext)
 
-	const API_URL = 'https://socialmtn.devmountain.com'
+	const API_URL = 'http://localhost:4000'
 
 	const submitHandler = e => {
 		e.preventDefault()
