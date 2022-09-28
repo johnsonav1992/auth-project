@@ -11,16 +11,17 @@ module.exports = {
             res.sendStatus(401)
         }
 
-        let token
+        let verifiedToken
 
         try {
-            token = jwt.verify(headerToken, SECRET)
+            verifiedToken = jwt.verify(headerToken, SECRET)
+            //TOKEN:  { username: 'test', id: 4, iat: 1664398565, exp: 1664571365 }
         } catch (err) {
             err.statusCode = 500
             throw err
         }
 
-        if (!token) {
+        if (!verifiedToken) {
             const error = new Error('Not authenticated.')
             error.statusCode = 401
             throw error

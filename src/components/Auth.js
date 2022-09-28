@@ -29,7 +29,7 @@ const Auth = () => {
 				setTimeout(() => {
 					setMessage('')
 				}, 2000)
-				authCtx.login(data.token, data.exp, data.userId)
+				authCtx.login(data.token, data.sessionExp, data.userId)
 			})
 			.catch(err => {
 				console.error(err)

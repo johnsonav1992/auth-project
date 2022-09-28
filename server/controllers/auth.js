@@ -62,13 +62,17 @@ module.exports = {
 						foundUser.dataValues.username,
 						foundUser.dataValues.id
 					)
-					const exp = Date.now() + 1000 * 60 * 60 * 48
+					const verifiedToken = jwt.verify(token, SECRET)
+					const sessionStart = verifiedToken.iat
+					
+					const sessionExp = Date.now() + 1000 * 60 * 60 * 48
 
 					res.status(200).send({
                         username: foundUser.dataValues.username,
                         userId: foundUser.dataValues.id,
 						token,
-						exp,
+						sessionStart,
+						sessionExp,
 					})
 				} else {
                     res.status(400).send('Cannot log in')

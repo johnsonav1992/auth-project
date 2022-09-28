@@ -15,6 +15,8 @@ const Profile = () => {
             .catch(err => console.log(err))
     }, [userId])
 
+    
+
     useEffect(() => {
         getUserPosts()
     }, [getUserPosts])
