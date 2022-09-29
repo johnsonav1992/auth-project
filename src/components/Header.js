@@ -8,11 +8,8 @@ const Header = () => {
 	const authCtx = useContext(AuthContext)
 	const navigate = useNavigate()
 
-	const styleActiveLink = ({ isActive }) => {
-		return {
-			color: isActive ? '#f57145' : '',
-		}
-	}
+	const styleActiveLink = ({ isActive }) => (isActive ? 'active' : 'inactive')
+	
 
 	return (
 		<header className="header flex-row">
@@ -24,13 +21,13 @@ const Header = () => {
 				{authCtx.token ? (
 					<ul className="main-nav">
 						<li>
-							<NavLink to="/">Home</NavLink>
+							<NavLink to="/" className={styleActiveLink}>Home</NavLink>
 						</li>
 						<li>
-							<NavLink to="profile">Profile</NavLink>
+							<NavLink to="profile" className={styleActiveLink}>Profile</NavLink>
 						</li>
 						<li>
-							<NavLink to="form">Add Post</NavLink>
+							<NavLink to="form" className={styleActiveLink}>Add Post</NavLink>
 						</li>
 						<li>
 							<button
@@ -50,7 +47,7 @@ const Header = () => {
 							<NavLink to="/">Home</NavLink>
 						</li>
 						<li>
-							<NavLink to="/auth">Login or Sign Up</NavLink>
+							<NavLink to="/auth" className={styleActiveLink}>Login or Sign Up</NavLink>
 						</li>
 					</ul>
 				)}
