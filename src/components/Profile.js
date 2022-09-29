@@ -6,15 +6,12 @@ import AuthContext from '../store/authContext'
 const Profile = () => {
     const { userId, token } = useContext(AuthContext)
     const [posts, setPosts] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
 
     const url = 'http://localhost:4000'
 
     const getUserPosts = useCallback(() => {
         axios.get(`${url}/userposts/${userId}`)
-            .then(res => {
-                setPosts(res.data)
-                setIsLoading(false)})
+            .then(res => setPosts(res.data))
             .catch(err => console.log(err))
     }, [userId])
 
@@ -22,7 +19,6 @@ const Profile = () => {
 
     useEffect(() => {
         getUserPosts()
-        setIsLoading(true)
     }, [getUserPosts])
 
     const updatePost = (id, status) => {
@@ -77,7 +73,7 @@ const Profile = () => {
     return mappedPosts.length >= 1 ? (
         <main>
             <h1>My Posts</h1>
-            {isLoading ? <p>Loading...</p> : mappedPosts}
+            {mappedPosts}
         </main>
     ) : (
         <main>
