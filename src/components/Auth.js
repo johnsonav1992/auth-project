@@ -6,10 +6,8 @@ import AuthContext from '../store/authContext'
 const Auth = () => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
-	const [register, setRegister] = useState(true)
-	const [message, setMessage] = useState('')
+	const [register, setRegister] = useState(false)
 	const [error, setError] = useState('')
-	const [isFocused, setIsFocused] = useState(false)
 
 	const authCtx = useContext(AuthContext)
 
@@ -24,18 +22,12 @@ const Auth = () => {
 				password,
 			})
 			.then(({ data }) => {
-				console.log(data)
-				setMessage('User added!')
-				setTimeout(() => {
-					setMessage('')
-				}, 2000)
+				console.log('User added!')
 				authCtx.login(data.token, data.sessionExp, data.userId)
 			})
 			.catch(err => {
 				console.error(err)
-				if (register) {
-					setError('Could not register - user already exists!')
-				} else setError('Could not login!')
+				setError(err.response.data)
 				setTimeout(() => {
 					setError('')
 				}, 2000)
@@ -47,7 +39,7 @@ const Auth = () => {
 
 	return (
 		<main>
-			<h1>{register ? 'Register for an Account' : 'Login'}</h1>
+			<h1>{!register ? 'Login' : 'Register for an account'}</h1>
 			<form className="form auth-form" onSubmit={submitHandler}>
 				<input
 					className="form-input"
@@ -64,10 +56,9 @@ const Auth = () => {
 					onChange={e => setPassword(e.target.value)}
 				/>
 				<button className="form-btn">
-					{register ? 'Sign Up' : 'Login'}
+					{!register ? 'Login' : 'Register'}
 				</button>
 				{error && <p className='error-msg'>{error}</p>}
-				<h3>{message}</h3>
 			</form>
 			<button
 				className="form-btn"
@@ -75,7 +66,7 @@ const Auth = () => {
 					setRegister(!register)
 				}}
 			>
-				Need to {register ? 'Login? Click Here' : 'Sign Up? Click Here'}
+				Need to {!register ? 'Sign Up? Click Here' : 'Login? Click here'}
 			</button>
 		</main>
 	)

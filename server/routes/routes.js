@@ -1,4 +1,4 @@
-const { register, login, logout } = require('../controllers/auth')
+const { register, login } = require('../controllers/auth')
 const { getAllPosts, getCurrentUserPosts, addPost, editPost, deletePost } = require('../controllers/posts')
 const { isAuthenticated } = require('../middleware/isAuthenticated')
 

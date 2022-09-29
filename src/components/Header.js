@@ -9,8 +9,8 @@ const Header = () => {
 	const navigate = useNavigate()
 
 	const styleActiveLink = ({ isActive }) => (isActive ? 'active' : 'inactive')
-	
 
+	
 	return (
 		<header className="header flex-row">
 			<div className="flex-row">

@@ -30,7 +30,10 @@ const Home = () => {
 	})
 
 	return mappedPosts.length >= 1 ? (
-		<main>{mappedPosts}</main>
+		<main>
+			<h1>DM Community Posts</h1>
+			{mappedPosts}
+		</main>
 	) : (
 		<main>
 			<h1>There are no posts yet!</h1>

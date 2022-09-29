@@ -13,12 +13,17 @@ module.exports = {
 	register: async (req, res) => {
 		try {
 			const { username, password } = req.body
+			
+			if (username === '' || password === '') {
+				throw 'Please provide a username and password'
+			}
+
 			const foundUser = await User.findOne({
 				where: { username: username },
 			})
 
 			if (foundUser) {
-				res.status(400).send('User already exists')
+				throw 'User already exists'
 			} else {
 				const salt = bcrypt.genSaltSync(10)
 				const hash = bcrypt.hashSync(password, salt)
@@ -31,18 +36,22 @@ module.exports = {
 					newUser.dataValues.username,
 					newUser.dataValues.id
 				)
-				const exp = Date.now() + 1000 * 60 * 60 * 48
+				const verifiedToken = jwt.verify(token, SECRET)
+					const sessionStart = verifiedToken.iat
+					
+					const sessionExp = Date.now() + 1000 * 60 * 60 * 48
 
-				res.status(200).send({
-					username: newUser.dataValues.username,
-					userId: newUser.dataValues.id,
-					token,
-					exp,
-				})
+					res.status(200).send({
+                        username: newUser.dataValues.username,
+                        userId: newUser.dataValues.id,
+						token,
+						sessionStart,
+						sessionExp
+					})
 			}
 		} catch (err) {
-			console.error('ERROR in register', err)
-			res.sendStatus(400)
+			console.error(err)
+			res.status(400).send(err)
 		}
 	},
 
@@ -72,21 +81,17 @@ module.exports = {
                         userId: foundUser.dataValues.id,
 						token,
 						sessionStart,
-						sessionExp,
+						sessionExp
 					})
 				} else {
-                    res.status(400).send('Cannot log in')
+                    throw 'Cannot login. Please try again.'
                 }
 			} else {
-                res.status(400).send('Cannot log in')
+                throw 'Cannot log in. User not found.'
 			}
 		} catch (err) {
-			console.error('ERROR in login', err)
-			res.sendStatus(400)
+			console.error(err)
+			res.status(400).send(err)
         }
-	},
-
-	logout: (req, res) => {
-		console.log('logout')
-	},
+	}
 }
