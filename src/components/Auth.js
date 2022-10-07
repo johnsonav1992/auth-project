@@ -22,7 +22,6 @@ const Auth = () => {
 				password,
 			})
 			.then(({ data }) => {
-				console.log('User added!')
 				authCtx.login(data.token, data.sessionExp, data.userId)
 			})
 			.catch(err => {
