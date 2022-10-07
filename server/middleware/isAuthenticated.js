@@ -5,6 +5,7 @@ const { SECRET } = process.env
 module.exports = {
     isAuthenticated: (req, res, next) => {
         const headerToken = req.get('Authorization')
+        console.log('REQ', req)
 
         if (!headerToken) {
             console.log('ERROR IN auth middleware')
